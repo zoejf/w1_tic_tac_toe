@@ -3,6 +3,27 @@
 }
 
 .box {
-  border: 1px solid black;
+  border: 3px solid black;
   height: 150px;
+  background-color: white;
+}
+
+.invisBox{
+	text-align: center;
+}
+
+.x {
+	background-color: blue;
+	color: white;
+	font-size: 700%;
+	text-align: center;
+	padding-top: 10px;
+}
+
+.o {
+	background-color: red;
+	color: white;
+	font-size: 700%;
+	text-align: center;
+	padding-top: 2px;
 }
