@@ -9,7 +9,6 @@ var allBoxes = document.querySelectorAll(".box")
 var button = document.querySelector(".btn")
 
 var count = 0;
-	// while (count<=9)
 
 for (i=0; i<allBoxes.length; i++){
 
@@ -18,20 +17,17 @@ for (i=0; i<allBoxes.length; i++){
 			this.innerText = "X";
 			this.classList.add("x");
 			count++;
+			alert("It's now Player O's turn.")
 		} else if (count % 2 !== 0 && this.innerText === ""){
 			this.innerText = "O";
 			this.classList.add("o");
 			count++;
+			alert("It's now Player X's turn.")
 		} else {
-			alert("This box has already been chosen!")
+			alert("This box has already been chosen!");
 		};	
 	});
 };
-
-
-// box1.addEventListener("click", function() {
-// 	box1.classList.add = "x";
-// });
 
 
 button.addEventListener("click", function(event) {
@@ -46,11 +42,3 @@ button.addEventListener("click", function(event) {
  
 
 });
-
-
-
-// links[i].onclick = function(event){
-//         event.preventDefault(); // SUPER IMPORTANT PART
-//         alert(this.innerText)
-//     }
-// }
