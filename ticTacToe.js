@@ -10,15 +10,6 @@ var allBoxes = $(".box");
 var count = 0;
 console.log("count = ", count);
 console.log("allBoxes[1] = ", allBoxes[1]);
-var box1 = $("#box1");
-var box2 = $("#box2");
-var box3 = $("#box3");
-var box4 = $("#box4");
-var box5 = $("#box5");
-var box6 = $("#box6");
-var box7 = $("#box7");
-var box8 = $("#box8");
-var box9 = $("#box9");
 
 // $(".box").on("click", function () {
 // 	console.log("box clicked", this);
@@ -27,20 +18,33 @@ var box9 = $("#box9");
 // var rows = [[box1.innerText, box2.innerText, box3.innerText], [box4.innerText, box5.innerText, box6.innerText], [box7.innerText, box8.innerText, box9.innerText]];
 // var columns = [[box1.innerText, box4.innerText, box7.innerText], [box2.innerText, box5.innerText, box8.innerText], [box3.innerText, box6.innerText, box9.innerText]];
 // var diagonals = [[box1.innerText, box5.innerText, box9.innerText], [box7.innerText, box5.innerText, box3.innerText]];
-var winner;
+
 function checkWinner(player) {
+	var winner  = "";
+	var box1 = $("#box1");
+	var box2 = $("#box2");
+	var box3 = $("#box3");
+	var box4 = $("#box4");
+	var box5 = $("#box5");
+	var box6 = $("#box6");
+	var box7 = $("#box7");
+	var box8 = $("#box8");
+	var box9 = $("#box9");
+
+	console.log("inside checkWinner! Player = ", player);
+	console.log("test: box3.innerText", box3.text());
 	//check for winner by row
-	if ((box1.innerText === player && box2.innerText === player && box3.innerText === player) || (box4.innerText === player && box5.innerText === player && box6.innerText === player) || (box7.innerText === player && box8.innerText === player && box9.innerText === player)) {
+	if ((box1.text() === player && box2.text() === player && box3.text() === player) || (box4.text() === player && box5.text() === player && box6.text() === player) || (box7.text() === player && box8.text() === player && box9.text() === player)) {
 		console.log("Player " + player + "  wins");
 		winner = player;
 		return winner;
 	//check for winner by column
-	} else if ((box1.innerText === player && box4.innerText === player && box7.innerText === player) || (box2.innerText === player && box5.innerText === player && box8.innerText === player) || (box3.innerText === player && box6.innerText === player && box9.innerText === player)) {
+	} else if ((box1.text() === player && box4.text() === player && box7.text() === player) || (box2.text() === player && box5.text() === player && box8.text() === player) || (box3.text() === player && box6.text() === player && box9.text() === player)) {
 		console.log("Player " + player + " wins");
 		winner = player;
 		return winner;
 	//check for winner by diagonal
-	} else if ((box1.innerText === player && box5.innerText === player && box9.innerText === player) || (box7.innerText === player && box5.innerText === player && box3.innerText === player)) {
+	} else if ((box1.text() === player && box5.text() === player && box9.text() === player) || (box7.text() === player && box5.text() === player && box3.text() === player)) {
 		console.log("Player " + player + " wins");
 		winner = player;
 		return winner;
@@ -49,7 +53,7 @@ function checkWinner(player) {
 
 //listen for a click on any box in the board grid
 $(".box").click(function() {
-	while (count < 9) {
+	while (count < 10) {
 		//start the game with welcome and intructions
 		if (count === 0) {
 				alert("Welcome to Tic-Tac-Toe. Player O, please click a box to chose the first move.");
@@ -63,16 +67,10 @@ $(".box").click(function() {
 			} else if (count % 2 === 0 && this.innerText === ""){	
 				this.innerText = "X";
 				$(this).addClass("x");
-				
-				//run functions to check for a winner
-				checkWinner("X");
-				checkWinner("O");
-				
+			
 				//announce the winner, if there is one
-				if (winner === "X"){
+				if (checkWinner("X") === "X"){
 					alert("Player X is the winner! Click the Reset button to play again.");
-				} else if (winner === "O") {
-					alert("Player O is the winner! Click the Reset button to play again.");
 				//otherwise, continue the game
 				} else {
 					count++;
@@ -87,14 +85,11 @@ $(".box").click(function() {
 				this.innerText = "O";
 				console.log("line 88", this);
 				$(this).addClass("o");
-				checkWinner("X");
-				checkWinner("O");
-				
+
 				//announce a winner, if there is one
-				if (winner === "X"){
-					alert("Player X is the winner! Click the Reset button to play again.");
-				} else if (winner === "O") {
+				if (checkWinner("O") === "O"){
 					alert("Player O is the winner! Click the Reset button to play again.");
+					return count; 
 				//if there is no winner yet, continue the game
 				} else {
 					count++;
@@ -117,7 +112,6 @@ button.click(function () {
 		allBoxes[i].removeClass("o")
 		allBoxes[i].innerText = "";
 		count = 0;
-		winner = "";
 		}
 	});
 
