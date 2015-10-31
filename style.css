@@ -13,16 +13,16 @@
 }
 
 .x {
-	background-color: blue;
-	color: white;
+	/*background-image: url("http://i.imgur.com/wd9BDYQ.jpg");*/
+	color: red;
 	font-size: 700%;
 	text-align: center;
 	padding-top: 10px;
 }
 
 .o {
-	background-color: red;
-	color: white;
+	/*background-image: url("http://i.imgur.com/lj6PQaz.jpg"); */
+	color: blue;
 	font-size: 700%;
 	text-align: center;
 	padding-top: 2px;
