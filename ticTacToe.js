@@ -9,7 +9,6 @@ console.log("sanity check: JS works");
 var allBoxes = $(".box");
 var count = 0;
 console.log("count = ", count);
-console.log("allBoxes[1] = ", allBoxes[1]);
 
 // $(".box").on("click", function () {
 // 	console.log("box clicked", this);
@@ -32,28 +31,33 @@ function checkWinner(player) {
 	var box9 = $("#box9");
 
 	console.log("inside checkWinner! Player = ", player);
-	console.log("test: box3.innerText", box3.text());
 	//check for winner by row
 	if ((box1.text() === player && box2.text() === player && box3.text() === player) || (box4.text() === player && box5.text() === player && box6.text() === player) || (box7.text() === player && box8.text() === player && box9.text() === player)) {
-		console.log("Player " + player + "  wins");
 		winner = player;
-		return winner;
+		alert("Player " + winner + " is the winner! Click the Reset button to play again.");
+		// return winner;
 	//check for winner by column
 	} else if ((box1.text() === player && box4.text() === player && box7.text() === player) || (box2.text() === player && box5.text() === player && box8.text() === player) || (box3.text() === player && box6.text() === player && box9.text() === player)) {
-		console.log("Player " + player + " wins");
 		winner = player;
-		return winner;
+		alert("Player " + winner + " is the winner! Click the Reset button to play again.");
+		// return winner;
 	//check for winner by diagonal
 	} else if ((box1.text() === player && box5.text() === player && box9.text() === player) || (box7.text() === player && box5.text() === player && box3.text() === player)) {
-		console.log("Player " + player + " wins");
 		winner = player;
-		return winner;
-	}
+		alert("Player " + winner + " is the winner! Click the Reset button to play again.");
+		// return winner;
+	} else if (count === 9) {
+		alert("Draw! There is no winner. Click the Reset button to play again.");
+		winner = "no one";
+		count ++;
+		// return winner;
+	} 
+	return winner;
 }
 
 //listen for a click on any box in the board grid
 $(".box").click(function() {
-	while (count < 10) {
+	while (count <= 9) {
 		//start the game with welcome and intructions
 		if (count === 0) {
 				alert("Welcome to Tic-Tac-Toe. Player O, please click a box to chose the first move.");
@@ -69,10 +73,11 @@ $(".box").click(function() {
 				$(this).addClass("x");
 			
 				//announce the winner, if there is one
-				if (checkWinner("X") === "X"){
-					alert("Player X is the winner! Click the Reset button to play again.");
+				var winnerX = checkWinner("X");
+				if (winnerX === "X"){
+					// alert("Player X is the winner! Click the Reset button to play again.");
 				//otherwise, continue the game
-				} else {
+				} else if (winnerX === "") {
 					count++;
 					console.log("count is now: ", count);
 					alert("It's now Player O's turn.");
@@ -83,15 +88,15 @@ $(".box").click(function() {
 			} else if (count % 2 !== 0 && this.innerText === ""){
 				console.log("inside O function this = ", this);
 				this.innerText = "O";
-				console.log("line 88", this);
 				$(this).addClass("o");
 
 				//announce a winner, if there is one
-				if (checkWinner("O") === "O"){
-					alert("Player O is the winner! Click the Reset button to play again.");
+				var winnerO = checkWinner("O");
+				if (winnerO === "O"){
+					// alert("Player O is the winner! Click the Reset button to play again.");
 					return count; 
 				//if there is no winner yet, continue the game
-				} else {
+				} else if (winnerO === ""){
 					count++;
 					console.log("count is now: ", count);
 					alert("It's now Player X's turn.");	
@@ -99,22 +104,23 @@ $(".box").click(function() {
 				}
 			} 
 		}	
-	} // end of while count < 9
-	alert("Draw! There is no winner. Click the Reset button to play again.");
+	} // end of while count <= 9
 });
 
-//when you click the Reset button, the whole board clears
+//when you click the Reset button, the whole board clears and game resets
 var button = $(".btn");
 button.click(function () {
-// button.addEventListener("click", function(event) {
-	 for (var i=0; i < allBoxes.length; i++) { 
-		allBoxes[i].removeClass("x");
-		allBoxes[i].removeClass("o")
-		allBoxes[i].innerText = "";
-		count = 0;
-		}
-	});
-
- 
-
+ for (var i=0; i < allBoxes.length; i++) { 
+	allBoxes[i].innerHTML = "";
+	if ($(allBoxes[i]).hasClass("x")) {
+		$(allBoxes[i]).removeClass("x");
+	} else if ($(allBoxes[i]).hasClass("o")){
+		$(allBoxes[i]).removeClass("o");
+	}
+	count = 0;
+	}
 });
+
+
+}); // end of document.ready
+
